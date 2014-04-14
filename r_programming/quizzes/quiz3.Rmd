@@ -1,0 +1,64 @@
+Quiz 3
+========================================================
+
+Question 1
+----------------------------
+Take a look at the 'iris' dataset that comes with R. 
+The data can be loaded with the code:
+
+```{r}
+library(datasets)
+data(iris)
+
+```
+
+There will be an object called 'iris' in your workspace. In this dataset, what is the mean of 'Sepal.Length' for the species virginica?
+
+```{r}
+tapply(iris$Sepal.Length,iris$Species,mean)
+
+# or this way
+tapply(iris$Sepal.Length,iris$Species%in%c("virginica"),mean)
+
+# or this way
+tapply(iris$Sepal.Length,iris$Species=="virginica",mean)
+```
+
+
+Question 2
+-----------------------------------
+Continuing with the 'iris' dataset from the previous Question, what R code returns a vector of the means of the variables 'Sepal.Length', 'Sepal.Width', 'Petal.Length', and 'Petal.Width'?
+```{r}
+apply(iris, 2, mean)
+rowMeans(iris[, 1:4])
+apply(iris[, 1:4], 2, mean)
+apply(iris[, 1:4], 1, mean)
+```
+
+
+Question 3
+----------------------------------
+Load the 'mtcars' dataset in R with the following code
+```{r}
+library(datasets)
+data(mtcars)
+```
+
+How can one calculate the average miles per gallon (mpg) by number of cylinders in the car (cyl)?
+```{r}
+tapply(mtcars$cyl, mtcars$mpg, mean)
+split(mtcars, mtcars$cyl)
+sapply(split(mtcars$mpg, mtcars$cyl), mean)
+mean(mtcars$mpg, mtcars$cyl)
+```
+
+Question 4
+---------------------
+Continuing with the 'mtcars' dataset from the previous Question, what is the absolute difference between the average horsepower of 4-cylinder cars and the average horsepower of 8-cylinder cars?
+
+
+```{r}
+tapply(mtcars$hp, mtcars$cyl, mean)
+lapply(split(mtcars$hp, mtcars$cyl), mean)$'8' - lapply(split(mtcars$hp, mtcars$cyl), mean)$'4'
+```
+
